@@ -6,7 +6,8 @@ import {
   Switch,
   ActivityIndicator,
   FlatList,
-  Button,
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -84,9 +85,18 @@ const Dashboard = () => {
       color: isDark ? '#ccc' : '#555',
       marginBottom: 8,
     },
-    button:{
-        marginTop:25,
-    }
+    button: {
+      marginTop: 20,
+      paddingVertical: 12,
+      backgroundColor: isDark ? '#4CAF50' : '#2196F3',
+      borderRadius: 8,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: '600',
+    },
   });
 
   if (theme === null) {
@@ -98,7 +108,7 @@ const Dashboard = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerRow}>
         <Text style={styles.header}>FitTrack Dashboard</Text>
         <Switch
@@ -142,19 +152,20 @@ const Dashboard = () => {
         />
       </View>
 
-      <Button
-        title="View Nutrition Guide"
-        onPress={() => navigation.navigate('Nutrition', {theme})}
-        color={isDark ? '#4CAF50' : '#2196F3'}
+      <TouchableOpacity
         style={styles.button}
-      />
-      <Button
-        title="Personal Check"
-        onPress={() => navigation.navigate('CheckUp', {theme})}
-        color={isDark ? '#4CAF50':'#2196F3'}
+        onPress={() => navigation.navigate('Nutrition', { theme })}
+      >
+        <Text style={styles.buttonText}>View Nutrition Guide</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
         style={styles.button}
-      />
-    </View>
+        onPress={() => navigation.navigate('CheckUp', { theme })}
+      >
+        <Text style={styles.buttonText}>Personal Check</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
